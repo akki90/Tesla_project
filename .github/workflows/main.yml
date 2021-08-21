@@ -1,12 +1,30 @@
 name: My application Devsecops workflow
 on: [push]
 jobs:
+
   unit-testing:
     runs-on: ubuntu-latest
     steps:
       - name: Clone the repository
         uses: actions/checkout@v2
-      - name: Install npm
+      - name: Install node modules
         run: npm install
       - name: Run npm test
         run: npm test
+
+  oast-retire:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone the repository
+        uses: actions/checkout@v2
+      - name: Install Retire
+        run: npm install -g retire
+      - name: Run Retire
+        run: retire --outputformat json --outputpath retire-output.json
+        continue-on-error: true
+      - name: Uplaod the output file
+        uses: upload/artifacts@v2
+        with:
+          name: Output file
+          path: retire-output.json
+        if: always()
