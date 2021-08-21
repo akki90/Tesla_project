@@ -23,7 +23,7 @@ jobs:
         run: retire --outputformat json --outputpath retire-output.json
         continue-on-error: true
       - name: Uplaod the output file
-        uses: upload/artifacts@v2
+        uses: actions/upload-artifacts@v2
         with:
           name: Output file
           path: retire-output.json
