@@ -1,0 +1,12 @@
+name: My application Devsecops workflow
+on: [push]
+jobs:
+  unit-testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone the repository
+        uses: actions/checkout@v2
+      - name: Install npm
+        run: npm install
+      - name: Run npm test
+        run: npm test
